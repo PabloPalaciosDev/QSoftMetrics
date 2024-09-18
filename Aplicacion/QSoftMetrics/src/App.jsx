@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import MainPage from "./pages/MainPage";
-
+import Review from "./pages/Review";
 function App() {
   const navRoutes = [
     {
@@ -18,8 +17,8 @@ function App() {
       icon: "../../public/icons/home.png",
     },
     {
-      path: "/main",
-      element: <MainPage />,
+      path: "/review",
+      element: <Review />,
       name: "Login",
       icon: "../../public/icons/home.png",
     },
