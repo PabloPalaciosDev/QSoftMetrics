@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Check, Braces, Info } from "lucide-react";
 
-export default function Login() {
+export default function Signup() {
   return (
     <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8 bg-[#F5F5F5]">
       <div className="mx-auto w-full max-w-md space-y-8 ">
@@ -9,17 +9,25 @@ export default function Login() {
           <div className="flex items-center justify-center">
             <Check size={32} strokeWidth={3} />
             <h2 className="ml-2 text-3xl font-bold tracking-tight text-foreground">
-              Iniciar Sesion
+              Registrarse
             </h2>
           </div>
           <p className="mt-2 text-center text-muted-foreground">
-            Bienvenido a nuestra plataforma de evaluación de calidad de
-            software.
+            Únete a nuestra plataforma de evaluación de calidad de software.
           </p>
         </div>
         <form className="space-y-6">
-          <div className=" gap-4 mx-auto">
-            <div className="space-y-2 flex flex-col">
+          <div className="grid grid-cols-2 gap-4 mx-auto">
+            <div className="space-y-2">
+              <label htmlFor="name">Nombre</label>
+              <input
+                id="name"
+                placeholder="Juan Pérez"
+                className="input input-bordered"
+                required
+              />
+            </div>
+            <div className="space-y-2">
               <label htmlFor="email">Correo electrónico</label>
               <input
                 id="email"
@@ -39,24 +47,31 @@ export default function Login() {
               className="input input-bordered"
             />
           </div>
-
+          <div className="space-y-2 flex flex-col">
+            <label htmlFor="role">Rol</label>
+            <select name="" id="" className="select select-bordered w-full">
+              <option value="developer">Desarrollador</option>
+              <option value="manager">Gerente</option>
+              <option value="tester">Tester</option>
+            </select>
+          </div>
           <div>
             <button
               type="submit"
               className="w-full btn btn-warning bg-[#FFA726]"
             >
-              Iniciar sesion
+              Registrarse
             </button>
           </div>
         </form>
         <div className="flex items-center justify-center space-x-2 text-sm text-muted-foreground">
-          <div>¿No tienes una cuenta?</div>
+          <div>¿Ya tienes una cuenta?</div>
           <Link
-            to="/signup"
+            to="/login"
             className="font-medium underline underline-offset-4"
             prefetch={false}
           >
-            Registrarte
+            Iniciar sesión
           </Link>
         </div>
         <div className="flex items-center justify-center space-x-4">

@@ -2,6 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Review from "./pages/Review";
+import Signup from "./pages/Signup";
+import MyProjects from "./pages/MyProjects";
+import MyReviews from "./pages/MyReviews";
+import Survey from "./pages/Survey";
 function App() {
   const navRoutes = [
     {
@@ -17,9 +21,33 @@ function App() {
       icon: "../../public/icons/home.png",
     },
     {
+      path: "/signup",
+      element: <Signup />,
+      name: "Registro",
+      icon: "../../public/icons/home.png",
+    },
+    {
       path: "/review",
       element: <Review />,
-      name: "Login",
+      name: "evaluacion",
+      icon: "../../public/icons/home.png",
+    },
+    {
+      path: "/my-projects",
+      element: <MyProjects />,
+      name: "mi proyectos",
+      icon: "../../public/icons/home.png",
+    },
+    {
+      path: "/my-reviews",
+      element: <MyReviews />,
+      name: "mis evaluaciones",
+      icon: "../../public/icons/home.png",
+    },
+    {
+      path: "/survey",
+      element: <Survey />,
+      name: "encuesta",
       icon: "../../public/icons/home.png",
     },
   ];
