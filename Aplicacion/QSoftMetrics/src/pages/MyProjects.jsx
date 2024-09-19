@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import InfoNav from "../components/InfoNav";
 import SoftwareTable from "../components/review/SoftwareTable";
+import { Link } from "react-router-dom";
 
 export default function MyProjects() {
   return (
@@ -26,7 +27,9 @@ export default function MyProjects() {
               <p>Lista de proyectos por evaluar</p>
             </div>
             <div className="me-4  ms-auto">
-              <button className="btn btn-success">Agregar Proyecto</button>
+              <Link to="./new" className="btn btn-success">
+                Agregar Proyecto
+              </Link>
             </div>
           </div>
           <SoftwareTable />
