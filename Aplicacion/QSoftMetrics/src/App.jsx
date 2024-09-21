@@ -7,6 +7,7 @@ import MyProjects from "./pages/MyProjects";
 import MyReviews from "./pages/MyReviews";
 import Survey from "./pages/Survey";
 import NewProjects from "./pages/NewProjects";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const navRoutes = [
@@ -53,8 +54,14 @@ function App() {
       icon: "../../public/icons/home.png",
     },
     {
-      path: "/survey",
+      path: "/survey/:id",
       element: <Survey />,
+      name: "encuesta",
+      icon: "../../public/icons/home.png",
+    },
+    {
+      path: "*",
+      element: <NotFound />,
       name: "encuesta",
       icon: "../../public/icons/home.png",
     },

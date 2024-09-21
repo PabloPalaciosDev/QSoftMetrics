@@ -1,8 +1,10 @@
 import Navbar from "../components/Navbar";
 import InfoNav from "../components/InfoNav";
 import SurveyQ from "../components/survey/SurveyQ";
+import { useParams } from "react-router-dom";
 
 export default function Survey() {
+  const { id } = useParams();
   return (
     <section className="flex flex-row min-h-[100vh] max-w-[100vw] bg-background text-foreground">
       <Navbar />
@@ -15,7 +17,7 @@ export default function Survey() {
         {/* contenido */}
         <section className="border rounded-md shadow-md p-3 bg-white m-3">
           <div className="p-2">
-            <h1 className="text-2xl">Lista de evaluaciones</h1>
+            <h1 className="text-2xl">Lista de evaluaciones: {id}</h1>
             <p>Lista de mis evaluaciones de software</p>
           </div>
           {/* preguntas */}
