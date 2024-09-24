@@ -33,7 +33,7 @@ export default function ProjectsTable({ data }) {
               </Link>
 
               <Link
-                to="/survey"
+                to="/results"
                 className="btn btn-accent bg-sky-500 btn-xs m-1"
               >
                 Ver evaluacion
