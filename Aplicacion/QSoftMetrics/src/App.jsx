@@ -9,6 +9,7 @@ import Survey from "./pages/Survey";
 import NewProjects from "./pages/NewProjects";
 import NotFound from "./pages/NotFound";
 import Results from "./pages/Results";
+import ResultFeedback from "./pages/ResultFeedback";
 
 function App() {
   const navRoutes = [
@@ -64,6 +65,12 @@ function App() {
       path: "/results",
       element: <Results />,
       name: "resultados",
+      icon: "../../public/icons/home.png",
+    },
+    {
+      path: "/results/feedback",
+      element: <ResultFeedback />,
+      name: "Resultado de la retroalimentación",
       icon: "../../public/icons/home.png",
     },
 
