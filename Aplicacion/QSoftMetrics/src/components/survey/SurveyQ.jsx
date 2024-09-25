@@ -7,8 +7,8 @@ export default function SurveyQ({ question }) {
     setSelected(value);
   };
   return (
-    <div className="p-2 mt-3">
-      <h1 className="text-xl">
+    <div className="p-2 my-6 flex border-b pb-6">
+      <h1 className="text-xl max-w-80">
         <span className="font-bold">1.</span> {question}
       </h1>
       {/* opciones */}
@@ -61,6 +61,14 @@ export default function SurveyQ({ question }) {
           <p className="text-2xl font-bold">5</p>
           <p className="text-lg">Muy de acuerdo</p>
         </div>
+      </div>
+      {/* comentario */}
+      <div>
+        <p className="text-xl">Comentario - opcional</p>
+        <textarea
+          className="input input-bordered min-w-96 min-h-40"
+          placeholder="Agregar Comentario"
+        ></textarea>
       </div>
     </div>
   );

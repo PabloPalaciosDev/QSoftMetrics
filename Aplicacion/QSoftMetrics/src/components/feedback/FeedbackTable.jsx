@@ -46,6 +46,7 @@ export default function FeedbackTable({ data }) {
             <th>Nombre</th>
             <th>Tipo de usuario</th>
             <th>Correo</th>
+            <th>Comentario</th>
             <th>Calificacion</th>
           </tr>
         </thead>
@@ -56,6 +57,9 @@ export default function FeedbackTable({ data }) {
               <td>{item.nombre}</td>
               <td>{item.tipo}</td>
               <td>{item.correo}</td>
+              <td className="max-w-96 text-ellipsis overflow-hidden">
+                {item.comentario === "" ? "Sin comentario" : item.comentario}
+              </td>
               <td>{item.calificacion}</td>
             </tr>
           ))}

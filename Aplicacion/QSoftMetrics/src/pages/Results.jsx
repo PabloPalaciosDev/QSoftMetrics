@@ -56,7 +56,7 @@ export default function Results() {
 
   return (
     <section className="flex flex-row min-h-[100vh] max-w-[100vw] bg-background text-foreground">
-      <Navbar page={2} />
+      <Navbar page={3} />
 
       <main className="flex flex-col bg-slate-100 flex-1">
         <div className="p-2">
@@ -71,7 +71,7 @@ export default function Results() {
 
         {/* graficos */}
         <section className="px-10">
-          <ResultChart data={data2} nombre="General" />
+          <ResultChart data={data2} nombre="General - Adecuacion Funcional" />
         </section>
         <section className="grid grid-cols-2 gap-2 p-4 px-20 ">
           <ResultChart data={data} nombre="Completitud Funcional" />

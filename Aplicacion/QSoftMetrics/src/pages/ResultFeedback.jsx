@@ -7,36 +7,43 @@ export default function ResultFeedback() {
       nombre: "Manolin",
       tipo: "Desarrollador",
       correo: "manolin@gmail.com",
+      comentario:
+        "no sirve alkdjasklj dsklakdj sajd slajkldjsak lklsakdljsalkjdlkasjdkasjkdjsa jdasjd laksjdklasdjkladjlkajdklasjdk",
       calificacion: 5,
     },
     {
       nombre: "Manolin",
       tipo: "Desarrollador",
       correo: "manolin@gmail.com",
+      comentario: "no sirve",
       calificacion: 5,
     },
     {
       nombre: "Manolin223",
       tipo: "Desarrollador",
       correo: "manolin@gmail.com",
+      comentario: "no sirve",
       calificacion: 3,
     },
     {
       nombre: "Manolin1232131",
       tipo: "Desarrollador",
       correo: "manolin@gmail.com",
+      comentario: "",
       calificacion: 0,
     },
     {
       nombre: "Manolin124124",
       tipo: "Desarrollador",
       correo: "manolin@gmail.com",
+      comentario: "",
       calificacion: 4,
     },
     {
       nombre: "Manolin12414",
       tipo: "Desarrollador",
       correo: "manolin@gmail.com",
+      comentario: "",
       calificacion: 2,
     },
   ];
