@@ -1,7 +1,45 @@
 import Navbar from "../components/Navbar";
 import InfoNav from "../components/InfoNav";
-
+import FeedbackTable from "../components/feedback/FeedbackTable";
 export default function ResultFeedback() {
+  const data = [
+    {
+      nombre: "Manolin",
+      tipo: "Desarrollador",
+      correo: "manolin@gmail.com",
+      calificacion: 5,
+    },
+    {
+      nombre: "Manolin",
+      tipo: "Desarrollador",
+      correo: "manolin@gmail.com",
+      calificacion: 5,
+    },
+    {
+      nombre: "Manolin223",
+      tipo: "Desarrollador",
+      correo: "manolin@gmail.com",
+      calificacion: 3,
+    },
+    {
+      nombre: "Manolin1232131",
+      tipo: "Desarrollador",
+      correo: "manolin@gmail.com",
+      calificacion: 0,
+    },
+    {
+      nombre: "Manolin124124",
+      tipo: "Desarrollador",
+      correo: "manolin@gmail.com",
+      calificacion: 4,
+    },
+    {
+      nombre: "Manolin12414",
+      tipo: "Desarrollador",
+      correo: "manolin@gmail.com",
+      calificacion: 2,
+    },
+  ];
   return (
     <section className="flex flex-row min-h-[100vh] min-w-[100vw] bg-background text-foreground">
       <Navbar page={1} />
@@ -25,6 +63,7 @@ export default function ResultFeedback() {
             <h1 className="text-2xl">Retroalimentacion</h1>
             <p>Opiniones</p>
           </div>
+          <FeedbackTable data={data} />
         </section>
       </main>
     </section>

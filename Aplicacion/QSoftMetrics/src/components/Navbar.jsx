@@ -28,7 +28,7 @@ export default function Navbar({ page }) {
           <div className="space-y-2">
             <Link
               to="/review"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726] w-52"
               style={{ backgroundColor: page === 0 && "#FFA726" }}
             >
               <ListTodo />
@@ -50,70 +50,76 @@ export default function Navbar({ page }) {
               <ScrollText />
               Mis Evaluaciones
             </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-              style={{ backgroundColor: page === 3 && "#FFA726" }}
-            >
-              <Accessibility />
-              Adecuación Funcional
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-            >
-              <TimerReset />
-              Eficiencia de Desempeño
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-            >
-              <MonitorCog />
-              Compatibilidad
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-            >
-              <Pointer />
-              Capacidad de Interacción
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-            >
-              <Copy />
-              Fiabilidad
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-            >
-              <Lock />
-              Seguridad
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-            >
-              <ServerCog />
-              Mantenibilidad
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-            >
-              <UnfoldHorizontal />
-              Flexibilidad
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-            >
-              <Shield />
-              Protección
-            </Link>
+
+            {page >= 0 && (
+              <div>
+                <div className="divider text-xs font-bold">ISO25010</div>
+                <Link
+                  to="?category=ade_func"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                  style={{ backgroundColor: page === 3 && "#FFA726" }}
+                >
+                  <Accessibility />
+                  Adecuación Funcional
+                </Link>
+                <Link
+                  to="?category=efi_des"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                >
+                  <TimerReset />
+                  Eficiencia de Desempeño
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                >
+                  <MonitorCog />
+                  Compatibilidad
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                >
+                  <Pointer />
+                  Capacidad de Interacción
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                >
+                  <Copy />
+                  Fiabilidad
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                >
+                  <Lock />
+                  Seguridad
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                >
+                  <ServerCog />
+                  Mantenibilidad
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                >
+                  <UnfoldHorizontal />
+                  Flexibilidad
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                >
+                  <Shield />
+                  Protección
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </nav>

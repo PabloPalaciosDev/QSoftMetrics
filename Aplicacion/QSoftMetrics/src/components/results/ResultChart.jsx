@@ -2,16 +2,17 @@ import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import { Link } from "react-router-dom";
 
-export default function ResultChart({ data }) {
+export default function ResultChart({ data, nombre }) {
   const total = data.datasets[0].data.reduce((acc, curr) => acc + curr);
   const noAplica = data.datasets[0].data[0];
   const enDesacuerdo = data.datasets[0].data[1] + data.datasets[0].data[2];
   const neutro = data.datasets[0].data[3];
   const deAcuerdo = data.datasets[0].data[4] + data.datasets[0].data[5];
+
   return (
     <div className="flex flex-row border rounded-md shadow-md p-3 bg-white relative">
       <div className="w-5/12">
-        <h1 className="text-2xl">Adecuacion funcional</h1>
+        <h1 className="text-2xl">{nombre}</h1>
         <p>Estadistica</p>
         <div className="mt-4 mb-1">
           <p className="text-6xl">{total}</p>

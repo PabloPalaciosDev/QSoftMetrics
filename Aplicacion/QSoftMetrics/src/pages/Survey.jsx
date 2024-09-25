@@ -1,13 +1,35 @@
 import Navbar from "../components/Navbar";
 import InfoNav from "../components/InfoNav";
 import SurveyQ from "../components/survey/SurveyQ";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 export default function Survey() {
+  const [searchParams] = useSearchParams();
   const { id } = useParams();
+  const myParam = searchParams.get("category");
+  const cate = [
+    "ade_func",
+    "efi_des",
+    "comp",
+    "cap_ite",
+    "fia",
+    "seg",
+    "mant",
+    "flex",
+    "prot",
+  ];
+  const findCategory = () => {
+    return cate.forEach((element, index) => {
+      if (element === myParam) {
+        return index + 3;
+      }
+    });
+  };
+  const number = findCategory();
+  console.log(number);
   return (
     <section className="flex flex-row min-h-[100vh] max-w-[100vw] bg-background text-foreground">
-      <Navbar />
+      <Navbar page={3} />
 
       <main className="flex flex-col bg-slate-100 flex-1">
         <div className="p-2">

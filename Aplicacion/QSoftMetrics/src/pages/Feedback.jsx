@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import InfoNav from "../components/InfoNav";
+import FeedbackTable from "../components/feedback/FeedbackTable";
 
 export default function Feedback() {
   return (
@@ -24,7 +25,7 @@ export default function Feedback() {
             <p>Dejanos tu opinion</p>
           </div>
 
-          <SoftwareTable />
+          <FeedbackTable />
         </section>
       </main>
     </section>
