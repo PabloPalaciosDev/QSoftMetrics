@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model caracteristica {
+  id_caracteristica Int                 @id @default(autoincrement())
+  nombre            String              @db.VarChar(200)
+  subcaracteristica subcaracteristica[]
+}
+
+model encuesta {
+  id_encuesta Int         @id @default(autoincrement())
+  software_id Int
+  usuario_id  Int
+  usuario     usuario     @relation(fields: [usuario_id], references: [id_usuario], onUpdate: Restrict, map: "encuesta_ibfk_1")
+  software    software    @relation(fields: [software_id], references: [id_software], onUpdate: Restrict, map: "encuesta_ibfk_2")
+  respuesta   respuesta[]
+
+  @@index([software_id], map: "software_id")
+  @@index([usuario_id], map: "usuario_id")
+}
+
+model pregunta {
+  id_pregunta          Int               @id @default(autoincrement())
+  pregunta             String            @db.VarChar(500)
+  subcaracteristica_id Int
+  subcaracteristica    subcaracteristica @relation(fields: [subcaracteristica_id], references: [id_subcaracteristica], onUpdate: Restrict, map: "pregunta_ibfk_1")
+  respuesta            respuesta[]
+
+  @@index([subcaracteristica_id], map: "subcaracteristica_id")
+}
+
+model respuesta {
+  id_respuesta Int      @id @default(autoincrement())
+  respuesta    Int
+  pregunta_id  Int
+  encuesta_id  Int
+  comentario   String   @db.VarChar(200)
+  encuesta     encuesta @relation(fields: [encuesta_id], references: [id_encuesta], onUpdate: Restrict, map: "respuesta_ibfk_1")
+  pregunta     pregunta @relation(fields: [pregunta_id], references: [id_pregunta], onUpdate: Restrict, map: "respuesta_ibfk_2")
+
+  @@index([encuesta_id], map: "encuesta_id")
+  @@index([pregunta_id], map: "pregunta_id")
+}
+
+model software {
+  id_software   Int        @id @default(autoincrement())
+  nombre        String     @db.VarChar(200)
+  version       String     @db.VarChar(200)
+  tipo_software String     @db.VarChar(200)
+  descripcion   String     @db.VarChar(200)
+  usuario_id    Int
+  encuesta      encuesta[]
+  usuario       usuario    @relation(fields: [usuario_id], references: [id_usuario], onUpdate: Restrict, map: "software_ibfk_1")
+
+  @@index([usuario_id], map: "usuario_id")
+}
+
+model subcaracteristica {
+  id_subcaracteristica Int            @id @default(autoincrement())
+  nombre               Int
+  caracteristica_id    Int
+  pregunta             pregunta[]
+  caracteristica       caracteristica @relation(fields: [caracteristica_id], references: [id_caracteristica], onUpdate: Restrict, map: "subcaracteristica_ibfk_1")
+
+  @@index([caracteristica_id], map: "caracteristica_id")
+}
+
+model usuario {
+  id_usuario Int        @id @default(autoincrement())
+  nombre     String     @db.VarChar(200)
+  correo     String     @db.VarChar(200)
+  contrase_a String     @map("contraseña") @db.VarChar(200)
+  rol        String     @db.VarChar(200)
+  encuesta   encuesta[]
+  software   software[]
+}
