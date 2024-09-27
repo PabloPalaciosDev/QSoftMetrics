@@ -1,7 +1,45 @@
 import { Link } from "react-router-dom";
 import { Check, Braces, Info } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const [data, setData] = useState({
+    nombre: "",
+    correo: "",
+    contra: "",
+    rol: "desarrollador",
+  });
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(data);
+    fetch("http://localhost:3000/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-origin": "*",
+      },
+      body: JSON.stringify(data),
+    }).then(async (res) => {
+      //manejo de la respuesta
+      console.log(res);
+      if (res.status === 200) {
+        const userdata = await res.json();
+        console.log(userdata);
+        localStorage.setItem("user", JSON.stringify(userdata));
+        navigate("/review");
+      } else {
+        console.log("Login failed");
+      }
+    });
+  };
+
   return (
     <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8 bg-[#F5F5F5]">
       <div className="mx-auto w-full max-w-md space-y-8 ">
@@ -16,15 +54,19 @@ export default function Signup() {
             Únete a nuestra plataforma de evaluación de calidad de software.
           </p>
         </div>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-4 mx-auto">
             <div className="space-y-2">
               <label htmlFor="name">Nombre</label>
               <input
                 id="name"
+                type="text"
+                name="nombre"
                 placeholder="Juan Pérez"
                 className="input input-bordered"
                 required
+                onChange={handleChange}
+                value={data.nombre}
               />
             </div>
             <div className="space-y-2">
@@ -32,9 +74,12 @@ export default function Signup() {
               <input
                 id="email"
                 type="email"
+                name="correo"
                 placeholder="juan@ejemplo.com"
                 className="input input-bordered"
                 required
+                onChange={handleChange}
+                value={data.correo}
               />
             </div>
           </div>
@@ -43,15 +88,23 @@ export default function Signup() {
             <input
               id="password"
               type="password"
+              name="contra"
+              onChange={handleChange}
+              value={data.contra}
               required
               className="input input-bordered"
             />
           </div>
           <div className="space-y-2 flex flex-col">
             <label htmlFor="role">Rol</label>
-            <select name="" id="" className="select select-bordered w-full">
-              <option value="developer">Desarrollador</option>
-              <option value="manager">Gerente</option>
+            <select
+              name="rol"
+              id=""
+              className="select select-bordered w-full"
+              onChange={handleChange}
+              value={data.rol}
+            >
+              <option value="desarrollador">Desarrollador</option>
               <option value="tester">Tester</option>
             </select>
           </div>

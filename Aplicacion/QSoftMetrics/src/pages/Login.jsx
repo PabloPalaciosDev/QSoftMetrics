@@ -1,7 +1,52 @@
 import { Link } from "react-router-dom";
 import { Check, Braces, Info } from "lucide-react";
-
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+  const navigate = useNavigate();
+
+  const [data, setData] = useState({
+    correo: "",
+    contra: "",
+  });
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(data);
+    //peticion a la api
+    fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-origin": "*",
+      },
+      body: JSON.stringify(data),
+    }).then(async (res) => {
+      //manejo de la respuesta
+      console.log(res);
+      if (res.status === 200) {
+        const userdata = await res.json();
+        console.log(userdata);
+        localStorage.setItem("user", JSON.stringify(userdata));
+        navigate("/review");
+      } else {
+        console.log("Login failed");
+      }
+    });
+  };
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      console.log("User already logged in");
+      navigate("/review");
+    }
+  }, []);
+
   return (
     <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8 bg-[#F5F5F5]">
       <div className="mx-auto w-full max-w-md space-y-8 ">
@@ -17,13 +62,16 @@ export default function Login() {
             software.
           </p>
         </div>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div className=" gap-4 mx-auto">
             <div className="space-y-2 flex flex-col">
               <label htmlFor="email">Correo electrónico</label>
               <input
                 id="email"
                 type="email"
+                name="correo"
+                value={data.correo}
+                onChange={handleChange}
                 placeholder="juan@ejemplo.com"
                 className="input input-bordered"
                 required
@@ -34,6 +82,9 @@ export default function Login() {
             <label htmlFor="password">Contraseña</label>
             <input
               id="password"
+              name="contra"
+              value={data.contra}
+              onChange={handleChange}
               type="password"
               required
               className="input input-bordered"

@@ -1,8 +1,21 @@
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+
 export default function InfoNav() {
+  const userData = JSON.parse(localStorage.getItem("user"));
+  console.log(userData);
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      console.log("User not logged in");
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <div className="navbar bg-base-100 rounded-md">
       <div className="flex-1">
-        <a className="text-xl font-bold">Bienvenido, Pancho!</a>
+        <a className="text-xl font-bold">Bienvenido, {userData.nombre}!</a>
       </div>
       <div className="flex-none gap-2">
         <div className="form-control">
@@ -31,15 +44,15 @@ export default function InfoNav() {
           >
             <li>
               <a className="justify-between">
-                Profile
+                Perfil
                 <span className="badge">New</span>
               </a>
             </li>
             <li>
-              <a>Settings</a>
+              <a>Opciones</a>
             </li>
             <li>
-              <a>Logout</a>
+              <Link to="/logout">Salir</Link>
             </li>
           </ul>
         </div>

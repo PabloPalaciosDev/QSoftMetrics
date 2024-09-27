@@ -10,6 +10,7 @@ import NewProjects from "./pages/NewProjects";
 import NotFound from "./pages/NotFound";
 import Results from "./pages/Results";
 import ResultFeedback from "./pages/ResultFeedback";
+import Logout from "./pages/Logout";
 
 function App() {
   const navRoutes = [
@@ -71,6 +72,12 @@ function App() {
       path: "/results/feedback",
       element: <ResultFeedback />,
       name: "Resultado de la retroalimentación",
+      icon: "../../public/icons/home.png",
+    },
+    {
+      path: "/logout",
+      element: <Logout />,
+      name: "cerrar sesion",
       icon: "../../public/icons/home.png",
     },
 
