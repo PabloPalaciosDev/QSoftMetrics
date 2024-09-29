@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import TableRow from "../general/TableRow";
 
-export default function ProjectsTable({ data }) {
+export default function ProjectsTable({ data, borrarProyecto }) {
   return (
     <div className="overflow-x-auto">
       <table className="table table-zebra">
@@ -18,34 +18,15 @@ export default function ProjectsTable({ data }) {
         </thead>
         <tbody>
           {/* row 1 */}
-          <tr>
-            <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>2.5</td>
-            <td>Quality Control Specialist</td>
-            <td>Blue</td>
-            <td>
-              <Link
-                to="/survey/1"
-                className="btn btn-warning bg-[#FFA726] btn-xs"
-              >
-                Evaluar
-              </Link>
 
-              <Link
-                to="/results"
-                className="btn btn-accent bg-sky-500 btn-xs m-1"
-              >
-                Ver evaluacion
-              </Link>
-              <Link to="/survey" className="btn btn-error btn-xs">
-                Eliminar
-              </Link>
-            </td>
-          </tr>
           {/* row 2 */}
           {data.map((item, index) => (
-            <TableRow data={item} index={index} />
+            <TableRow
+              data={item}
+              index={index}
+              borrarProyecto={borrarProyecto}
+              canDelete={true}
+            />
           ))}
         </tbody>
       </table>

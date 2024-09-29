@@ -3,7 +3,6 @@ import { useEffect } from "react";
 
 export default function InfoNav() {
   const userData = JSON.parse(localStorage.getItem("user"));
-  console.log(userData);
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) {

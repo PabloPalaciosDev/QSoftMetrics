@@ -14,8 +14,31 @@ import {
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Navbar({ page }) {
+  const [searchParams] = useSearchParams();
+  const [showCategories, setShowCategories] = useState(false);
+
+  useEffect(() => {
+    const myParam = searchParams.get("category");
+    if (!myParam) return;
+    setShowCategories(true);
+  }, [searchParams]);
+
+  const categories = [
+    { category: "ade_func", name: "Adecuación Funcional", icon: Accessibility },
+    { category: "efi_des", name: "Eficiencia de Desempeño", icon: TimerReset },
+    { category: "comp", name: "Compatibilidad", icon: MonitorCog },
+    { category: "cap_ite", name: "Capacidad de Interacción", icon: Pointer },
+    { category: "fia", name: "Fiabilidad", icon: Copy },
+    { category: "seg", name: "Seguridad", icon: Lock },
+    { category: "mant", name: "Mantenibilidad", icon: ServerCog },
+    { category: "flex", name: "Flexibilidad", icon: UnfoldHorizontal },
+    { category: "prot", name: "Protección", icon: Shield },
+  ];
+
   return (
     <div className="flex min-h-[100dvh] bg-background text-foreground ">
       <nav className="hidden w-60 flex-col  bg-card md:flex">
@@ -53,78 +76,29 @@ export default function Navbar({ page }) {
 
             <div className="">
               <div className="divider text-xs font-bold">ISO25010</div>
-              <Link
-                to="?category=ade_func"
-                className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-                style={{ backgroundColor: page === 3 && "#FFA726" }}
-              >
-                <Accessibility />
-                Adecuación Funcional
-              </Link>
-              <Link
-                to="?category=efi_des"
-                className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-                style={{ backgroundColor: page === 4 && "#FFA726" }}
-              >
-                <TimerReset />
-                Eficiencia de Desempeño
-              </Link>
-              <Link
-                to="?category=comp"
-                className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-                style={{ backgroundColor: page === 5 && "#FFA726" }}
-              >
-                <MonitorCog />
-                Compatibilidad
-              </Link>
-              <Link
-                to="?category=cap_ite"
-                className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-                style={{ backgroundColor: page === 6 && "#FFA726" }}
-              >
-                <Pointer />
-                Capacidad de Interacción
-              </Link>
-              <Link
-                to="?category=fia"
-                className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-                style={{ backgroundColor: page === 7 && "#FFA726" }}
-              >
-                <Copy />
-                Fiabilidad
-              </Link>
-              <Link
-                to="?category=seg"
-                className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-                style={{ backgroundColor: page === 8 && "#FFA726" }}
-              >
-                <Lock />
-                Seguridad
-              </Link>
-              <Link
-                to="?category=mant"
-                className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-                style={{ backgroundColor: page === 9 && "#FFA726" }}
-              >
-                <ServerCog />
-                Mantenibilidad
-              </Link>
-              <Link
-                to="?category=flex"
-                className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-                style={{ backgroundColor: page === 10 && "#FFA726" }}
-              >
-                <UnfoldHorizontal />
-                Flexibilidad
-              </Link>
-              <Link
-                to="?category=prot"
-                className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
-                style={{ backgroundColor: page === 11 && "#FFA726" }}
-              >
-                <Shield />
-                Protección
-              </Link>
+              {showCategories ? (
+                categories.map((cat) => (
+                  <Link
+                    to={"?category=" + cat.category}
+                    className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
+                    style={{
+                      backgroundColor:
+                        cat.category === searchParams.get("category") &&
+                        "#FFA726",
+                    }}
+                    key={cat.category}
+                  >
+                    <cat.icon />
+                    {cat.name}
+                  </Link>
+                ))
+              ) : (
+                <p className="text-center">
+                  <button className="btn btn-warning bg-[#FFA726] btn-lg">
+                    Evaluar sofware
+                  </button>
+                </p>
+              )}
             </div>
           </div>
         </div>

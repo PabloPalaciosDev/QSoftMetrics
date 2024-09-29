@@ -1,16 +1,22 @@
 import { Link } from "react-router-dom";
 
-export default function TableRow({ data, index }) {
+export default function TableRow({
+  data,
+  index,
+  borrarProyecto,
+  canDelete = false,
+}) {
   const item = data;
-  switch (item.software_type) {
+  console.log(item);
+  switch (item.tipo_software) {
     case "web_app":
-      item.software_type = "Aplicacion web";
+      item.tipo_software = "Aplicacion web";
       break;
     case "desktop_app":
-      item.software_type = "Aplicacion de escritorio";
+      item.tipo_software = "Aplicacion de escritorio";
       break;
     case "mobile_app":
-      item.software_type = "Aplicacion movil";
+      item.tipo_software = "Aplicacion movil";
       break;
     default:
       break;
@@ -19,21 +25,31 @@ export default function TableRow({ data, index }) {
   return (
     <tr key={index}>
       <th>{index + 1}</th>
-      <td>{item.name}</td>
+      <td>{item.nombre}</td>
       <td>{item.version}</td>
-      <td>{item?.software_type}</td>
-      <td className="max-w-96 text-ellipsis overflow-hidden">{item.desc}</td>
+      <td>{item?.tipo_software}</td>
+      <td className="max-w-96 text-ellipsis overflow-hidden">
+        {item.descripcion}
+      </td>
       <td>
-        <Link to="/survey" className="btn btn-warning bg-[#FFA726] btn-xs">
+        <Link
+          to={"/survey/" + item.id_software + "?category=ade_func"}
+          className="btn btn-warning bg-[#FFA726] btn-xs"
+        >
           Evaluar
         </Link>
 
         <Link to="/survey" className="btn btn-accent bg-sky-500 btn-xs m-1">
           Ver evaluacion
         </Link>
-        <Link to="/survey" className="btn btn-error btn-xs">
-          Eliminar
-        </Link>
+        {canDelete && (
+          <button
+            onClick={() => borrarProyecto(item.id_software)}
+            className="btn btn-error btn-xs"
+          >
+            Eliminar
+          </button>
+        )}
       </td>
     </tr>
   );

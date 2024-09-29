@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import TableRow from "../general/TableRow";
 
-export default function SoftwareTable() {
+export default function SoftwareTable({ data }) {
+  console.log(data);
   return (
     <div className="overflow-x-auto">
       <table className="table table-zebra">
@@ -16,47 +18,11 @@ export default function SoftwareTable() {
         </thead>
         <tbody>
           {/* row 1 */}
-          <tr>
-            <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
-            <td>Blue</td>
-            <td>
-              <Link
-                to="/survey"
-                className="btn btn-warning bg-[#FFA726] btn-xs"
-              >
-                Evaluar
-              </Link>
-            </td>
-          </tr>
+
           {/* row 2 */}
-          <tr>
-            <th>2</th>
-            <td>Hart Hagerty</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
-            <td>
-              <button className="btn btn-warning bg-[#FFA726] btn-xs">
-                Evaluar
-              </button>
-            </td>
-          </tr>
-          {/* row 3 */}
-          <tr>
-            <th>3</th>
-            <td>Brice Swyre</td>
-            <td>Tax Accountant</td>
-            <td>Red</td>
-            <td>
-              <Link
-                to="/survey"
-                className="btn btn-warning bg-[#FFA726] btn-xs"
-              >
-                Evaluar
-              </Link>
-            </td>
-          </tr>
+          {data.map((item, index) => (
+            <TableRow data={item} index={index} />
+          ))}
         </tbody>
       </table>
     </div>

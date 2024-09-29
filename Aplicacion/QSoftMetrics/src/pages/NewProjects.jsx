@@ -1,10 +1,11 @@
 import Navbar from "../components/Navbar";
 import InfoNav from "../components/InfoNav";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import CheckOption from "../components/general/CheckOption";
+import { useEffect, useState } from "react";
 
 export default function NewProjects() {
+  const [userId, setUserId] = useState("");
   const [projectData, setProjectData] = useState({
     name: "",
     version: "",
@@ -33,6 +34,33 @@ export default function NewProjects() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(projectData);
+    //obtiene las categorias seleccionadas
+    const categories = Object.keys(projectData.characteristics).filter(
+      (key) => projectData.characteristics[key]
+    );
+    const stringCategories = JSON.stringify(categories);
+    console.log(userId);
+    //hacemos la peticion
+    fetch("http://localhost:3000/api/software", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre: projectData.name,
+        version: projectData.version,
+        tipo_software: projectData.software_type,
+        descripcion: projectData.desc,
+        categorias: stringCategories,
+        usuario_id: userId,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        //redirigimos
+        window.location.href = "/my-projects";
+      });
   };
 
   const handleCheck = (e) => {
@@ -45,6 +73,15 @@ export default function NewProjects() {
     });
     console.log(projectData);
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user.id_usuario) {
+      console.log("User not logged in");
+      navigate("/login");
+    }
+    setUserId(user.id_usuario);
+  }, []);
 
   return (
     <section className="flex flex-row min-h-[100vh] min-w-[100vw] bg-background text-foreground">
