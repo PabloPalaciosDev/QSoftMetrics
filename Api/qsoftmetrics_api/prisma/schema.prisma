@@ -29,6 +29,7 @@ model pregunta {
   id_pregunta          Int               @id @default(autoincrement())
   pregunta             String            @db.VarChar(500)
   subcaracteristica_id Int
+  tipo_pregunta        Int
   subcaracteristica    subcaracteristica @relation(fields: [subcaracteristica_id], references: [id_subcaracteristica], onUpdate: Restrict, map: "pregunta_ibfk_1")
   respuesta            respuesta[]
 
@@ -54,6 +55,7 @@ model software {
   version       String     @db.VarChar(200)
   tipo_software String     @db.VarChar(200)
   descripcion   String     @db.VarChar(200)
+  categorias_a_evaluar String
   usuario_id    Int
   encuesta      encuesta[]
   usuario       usuario    @relation(fields: [usuario_id], references: [id_usuario], onUpdate: Restrict, map: "software_ibfk_1")
@@ -63,7 +65,7 @@ model software {
 
 model subcaracteristica {
   id_subcaracteristica Int            @id @default(autoincrement())
-  nombre               Int
+  nombre               String
   caracteristica_id    Int
   pregunta             pregunta[]
   caracteristica       caracteristica @relation(fields: [caracteristica_id], references: [id_caracteristica], onUpdate: Restrict, map: "subcaracteristica_ibfk_1")

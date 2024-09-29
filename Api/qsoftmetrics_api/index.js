@@ -1,19 +1,31 @@
-const { PrismaClient } = require("@prisma/client");
-
+import { PrismaClient } from "@prisma/client";
+import { categorias } from "./datos.js";
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.usuario.create({
-    data: {
-      nombre: "Alice",
-      correo: "manolo@gmail.com",
-      contrase_a: "1234",
-      rol: "desarrollador",
-    },
-  });
-
-  const allUsers = await prisma.usuario.findMany();
-  console.log(allUsers);
+  //crea las caracteristicas
+  for (const categoria of categorias) {
+    const cat = await prisma.caracteristica.create({
+      data: {
+        nombre: categoria.nombre,
+      },
+    });
+    for (const subcategoria of categoria.subcategorias) {
+      const subcat = await prisma.subcaracteristica.create({
+        data: {
+          nombre: subcategoria.nombre,
+          caracteristica_id: cat.id_caracteristica,
+        },
+      });
+      await prisma.pregunta.create({
+        data: {
+          pregunta: subcategoria.pregunta,
+          subcaracteristica_id: subcat.id_subcaracteristica,
+          tipo_pregunta: 1,
+        },
+      });
+    }
+  }
 }
 
 main()
