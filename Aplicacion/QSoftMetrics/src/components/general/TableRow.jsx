@@ -7,7 +7,6 @@ export default function TableRow({
   canDelete = false,
 }) {
   const item = data;
-  console.log(item);
   switch (item.tipo_software) {
     case "web_app":
       item.tipo_software = "Aplicacion web";

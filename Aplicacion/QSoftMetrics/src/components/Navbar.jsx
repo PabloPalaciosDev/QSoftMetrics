@@ -17,9 +17,23 @@ import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-export default function Navbar({ page }) {
+const allCategories = [
+  { category: "ade_func", name: "Adecuación Funcional", icon: Accessibility },
+  { category: "efi_des", name: "Eficiencia de Desempeño", icon: TimerReset },
+  { category: "comp", name: "Compatibilidad", icon: MonitorCog },
+  { category: "cap_ite", name: "Capacidad de Interacción", icon: Pointer },
+  { category: "fia", name: "Fiabilidad", icon: Copy },
+  { category: "seg", name: "Seguridad", icon: Lock },
+  { category: "mant", name: "Mantenibilidad", icon: ServerCog },
+  { category: "flex", name: "Flexibilidad", icon: UnfoldHorizontal },
+  { category: "prot", name: "Protección", icon: Shield },
+];
+
+export default function Navbar({ page, softwareCategories = null }) {
   const [searchParams] = useSearchParams();
   const [showCategories, setShowCategories] = useState(false);
+  const [categories, setCategories] = useState(allCategories);
+  const jsonCategories = JSON.parse(softwareCategories);
 
   useEffect(() => {
     const myParam = searchParams.get("category");
@@ -27,17 +41,24 @@ export default function Navbar({ page }) {
     setShowCategories(true);
   }, [searchParams]);
 
-  const categories = [
-    { category: "ade_func", name: "Adecuación Funcional", icon: Accessibility },
-    { category: "efi_des", name: "Eficiencia de Desempeño", icon: TimerReset },
-    { category: "comp", name: "Compatibilidad", icon: MonitorCog },
-    { category: "cap_ite", name: "Capacidad de Interacción", icon: Pointer },
-    { category: "fia", name: "Fiabilidad", icon: Copy },
-    { category: "seg", name: "Seguridad", icon: Lock },
-    { category: "mant", name: "Mantenibilidad", icon: ServerCog },
-    { category: "flex", name: "Flexibilidad", icon: UnfoldHorizontal },
-    { category: "prot", name: "Protección", icon: Shield },
-  ];
+  useEffect(() => {
+    setNavCategories();
+  }, [softwareCategories]);
+
+  const setNavCategories = () => {
+    console.log(jsonCategories);
+    if (softwareCategories) {
+      const cat = allCategories
+        .map((cat) => {
+          if (jsonCategories.includes(cat.category)) {
+            return cat;
+          }
+          return null;
+        })
+        .filter((cat) => cat !== null);
+      setCategories(cat);
+    }
+  };
 
   return (
     <div className="flex min-h-[100dvh] bg-background text-foreground ">

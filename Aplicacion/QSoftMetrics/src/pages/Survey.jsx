@@ -1,19 +1,38 @@
 import Navbar from "../components/Navbar";
 import InfoNav from "../components/InfoNav";
-import SurveyQ from "../components/survey/SurveyQ";
+import SurveyPanel from "../components/survey/SurveyPanel";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function Survey() {
-  const [searchParams] = useSearchParams();
   const { id } = useParams();
-  const [number, setNumber] = useState(3);
+  const [searchParams] = useSearchParams();
+  const [category, setCategory] = useState("Adecuación Funcional");
+  const [preguntas, setPreguntas] = useState([]);
+  const [software, setSoftware] = useState();
+
+  const fetchPreguntas = async () => {
+    const res = await fetch("http://localhost:3000/api/preguntas");
+    const data = await res.json();
+    setPreguntas(data);
+  };
+
+  const fetchSoftware = async () => {
+    const res = await fetch("http://localhost:3000/api/software/" + id);
+    const data = await res.json();
+    console.log(data);
+    setSoftware(data);
+  };
 
   useEffect(() => {
     const myParam = searchParams.get("category");
-    if (!myParam) return;
-    setNumber((prv) => findCategory(myParam));
+    findCategory(myParam);
   }, [searchParams]);
+
+  useEffect(() => {
+    fetchPreguntas();
+    fetchSoftware();
+  }, []);
 
   const cate = [
     "ade_func",
@@ -27,20 +46,20 @@ export default function Survey() {
     "prot",
   ];
   const findCategory = (myParam) => {
-    if (myParam === "ade_func") return 3;
-    if (myParam === "efi_des") return 4;
-    if (myParam === "comp") return 5;
-    if (myParam === "cap_ite") return 6;
-    if (myParam === "fia") return 7;
-    if (myParam === "seg") return 8;
-    if (myParam === "mant") return 9;
-    if (myParam === "flex") return 10;
-    if (myParam === "prot") return 11;
+    if (myParam === "ade_func") setCategory("Adecuación Funcional");
+    if (myParam === "efi_des") setCategory("Eficiencia de Desempeño");
+    if (myParam === "comp") setCategory("Compatibilidad");
+    if (myParam === "cap_ite") setCategory("Capacidad de Interacción");
+    if (myParam === "fia") setCategory("Fiabilidad");
+    if (myParam === "seg") setCategory("Seguridad");
+    if (myParam === "mant") setCategory("Mantenibilidad");
+    if (myParam === "flex") setCategory("Flexibilidad");
+    if (myParam === "prot") setCategory("Protección");
   };
 
   return (
     <section className="flex flex-row min-h-[100vh] max-w-[100vw] bg-background text-foreground">
-      <Navbar page={number} />
+      <Navbar softwareCategories={software?.categorias_a_evaluar} />
 
       <main className="flex flex-col bg-slate-100 flex-1">
         <div className="p-2">
@@ -48,35 +67,18 @@ export default function Survey() {
         </div>
 
         {/* contenido */}
-        <section className="border rounded-md shadow-md p-3 bg-white m-3">
-          <div className="p-2">
-            <h1 className="text-2xl">Adecuacion Funcional</h1>
-            <p>Lista de mis evaluaciones de software</p>
-          </div>
-          {/* preguntas */}
-          <div>
-            <SurveyQ
-              question="Completitud Fucional: El producto de software cumple con los estándares de calidad requeridos
-        según la norma ISO 25010?."
-            />
-
-            <SurveyQ
-              question="El producto de software cumple con los estándares de calidad requeridos
-        según la norma ISO 25010?."
-            />
-            <SurveyQ
-              question="El producto de software cumple con los estándares de calidad requeridos
-        según la norma ISO 25010?."
-            />
-            <SurveyQ
-              question="El producto de software cumple con los estándares de calidad requeridos
-        según la norma ISO 25010?."
-            />
-          </div>
-          <div className="flex p-2 mt-3">
-            <button className="btn btn-success  px-6 ms-auto">Enviar</button>
-          </div>
-        </section>
+        {preguntas.length > 0 && (
+          <section className="border rounded-md shadow-md p-3 bg-white m-3">
+            {preguntas.map((pregunta, index) => {
+              return (
+                <SurveyPanel
+                  preguntas={pregunta}
+                  showPanel={category === pregunta.nombre}
+                />
+              );
+            })}
+          </section>
+        )}
       </main>
     </section>
   );

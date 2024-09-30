@@ -39,7 +39,9 @@ export default function MyProjects() {
   // ];
   const cargarProyectos = async () => {
     const userId = await getUserId();
-    const res = await fetch("http://localhost:3000/api/software/" + userId);
+    const res = await fetch(
+      "http://localhost:3000/api/software/user/" + userId
+    );
     const data = await res.json();
     setProyectos(data);
   };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function SurveyQ({ question }) {
+export default function SurveyQ({ nombre, pregunta, index }) {
   const [selected, setSelected] = useState(null);
 
   const handleSelect = (value) => {
@@ -9,7 +9,10 @@ export default function SurveyQ({ question }) {
   return (
     <div className="p-2 my-6 flex border-b pb-6">
       <h1 className="text-xl max-w-80">
-        <span className="font-bold">1.</span> {question}
+        <span className="font-bold">
+          {index + 1}.{nombre}
+        </span>
+        : {pregunta}
       </h1>
       {/* opciones */}
       <div className="grid grid-cols-3 mt-3 md:gap-6">
