@@ -10,11 +10,21 @@ router.get("/software", async (req, res) => {
   res.send(software);
 });
 
-router.get("/software/:id", async (req, res) => {
+router.get("/software/user/:id", async (req, res) => {
   const { id } = req.params;
   const software = await prisma.software.findMany({
     where: {
       usuario_id: parseInt(id),
+    },
+  });
+  res.send(software);
+});
+
+router.get("/software/:id", async (req, res) => {
+  const { id } = req.params;
+  const software = await prisma.software.findUnique({
+    where: {
+      id_software: parseInt(id),
     },
   });
   res.send(software);
