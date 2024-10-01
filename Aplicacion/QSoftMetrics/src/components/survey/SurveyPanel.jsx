@@ -1,6 +1,14 @@
 import SurveyQ from "./SurveyQ";
 
-export default function SurveyPanel({ preguntas, showPanel }) {
+export default function SurveyPanel({
+  preguntas,
+  showPanel,
+  addAnswer,
+  submitAnswer,
+}) {
+  const handleSubmit = () => {
+    submitAnswer();
+  };
   return (
     <>
       {showPanel && (
@@ -15,13 +23,20 @@ export default function SurveyPanel({ preguntas, showPanel }) {
               <SurveyQ
                 key={index}
                 index={index}
-                pregunta={pregunta.pregunta}
-                nombre={pregunta.nombre}
+                pregunta={pregunta}
+                nombre={preguntas.nombre}
+                initValue={pregunta.respuesta}
+                addAnswer={addAnswer}
               />
             ))}
           </div>
           <div className="flex p-2 mt-3">
-            <button className="btn btn-success  px-6 ms-auto">Enviar</button>
+            <button
+              className="btn btn-success  px-6 ms-auto"
+              onClick={handleSubmit}
+            >
+              Enviar
+            </button>
           </div>
         </div>
       )}

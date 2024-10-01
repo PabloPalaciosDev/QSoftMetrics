@@ -1,21 +1,36 @@
 import { useState } from "react";
 
-export default function SurveyQ({ nombre, pregunta, index }) {
-  const [selected, setSelected] = useState(null);
-
+export default function SurveyQ({
+  pregunta,
+  index,
+  initValue = null,
+  addAnswer,
+  nombre,
+}) {
+  const [selected, setSelected] = useState(initValue);
   const handleSelect = (value) => {
     setSelected(value);
+    console.log("chngee");
+    addAnswer(nombre, pregunta.id_pregunta, value);
   };
+
+  const onChangeHandler = () => {
+    console.log("chngee2");
+  };
+
   return (
     <div className="p-2 my-6 flex border-b pb-6">
       <h1 className="text-xl max-w-80">
         <span className="font-bold">
-          {index + 1}.{nombre}
+          {index + 1}.{pregunta.nombre}
         </span>
-        : {pregunta}
+        : {pregunta.pregunta}
       </h1>
       {/* opciones */}
-      <div className="grid grid-cols-3 mt-3 md:gap-6">
+      <div
+        className="grid grid-cols-3 mt-3 md:gap-6"
+        onChange={onChangeHandler}
+      >
         <div
           className="border rounded-md flex flex-col justify-center items-center p-2 mx-4 transition-colors hover:cursor-pointer hover:bg-[#ffa8268c]"
           onClick={() => handleSelect(0)}
