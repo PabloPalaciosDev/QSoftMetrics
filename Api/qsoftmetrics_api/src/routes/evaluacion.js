@@ -23,7 +23,7 @@ router.get("/preguntas", async (req, res) => {
         id_pregunta: subcategoria.pregunta[0]?.id_pregunta,
         nombre: subcategoria.nombre,
         pregunta: subcategoria.pregunta[0]?.pregunta || null,
-        respuesta: 3,
+        comentario: "",
       })),
     }));
 
@@ -31,7 +31,6 @@ router.get("/preguntas", async (req, res) => {
   };
 
   const preguntas = await getPreguntas();
-  console.log(preguntas);
   res.send(preguntas);
 });
 
@@ -54,6 +53,14 @@ router.post("/survey", async (req, res) => {
     });
     res.send(nuevaEncuesta);
   }
+});
+
+router.post("/respuesta", async (req, res) => {
+  const respuestas = req.body;
+  const nuevaRespuesta = await prisma.respuesta.createMany({
+    data: respuestas,
+  });
+  res.send(nuevaRespuesta);
 });
 
 export default router;

@@ -38,7 +38,7 @@ model pregunta {
 
 model respuesta {
   id_respuesta Int      @id @default(autoincrement())
-  respuesta    Int
+  respuesta    Int      @default(0)
   pregunta_id  Int
   encuesta_id  Int
   comentario   String   @db.VarChar(200)
