@@ -7,7 +7,7 @@ export default function SurveyPanel({
   submitAnswer,
 }) {
   const handleSubmit = () => {
-    submitAnswer();
+    submitAnswer(preguntas.nombre);
   };
   return (
     <>

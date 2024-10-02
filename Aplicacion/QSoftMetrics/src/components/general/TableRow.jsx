@@ -32,7 +32,7 @@ export default function TableRow({
       </td>
       <td>
         <Link
-          to={"/survey/" + item.id_software + "?category=ade_func"}
+          to={"/survey/" + item.id_software + "?category=Adecuación Funcional"}
           className="btn btn-warning bg-[#FFA726] btn-xs"
         >
           Evaluar

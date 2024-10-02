@@ -8,14 +8,15 @@ export default function SurveyQ({
   nombre,
 }) {
   const [selected, setSelected] = useState(initValue);
+  const [comentario, setComentario] = useState(pregunta.comentario);
   const handleSelect = (value) => {
     setSelected(value);
     console.log("chngee");
-    addAnswer(nombre, pregunta.id_pregunta, value);
+    addAnswer(nombre, pregunta.id_pregunta, value, comentario);
   };
 
-  const onChangeHandler = () => {
-    console.log("chngee2");
+  const onChangeHandler = (e) => {
+    setComentario(e.target.value);
   };
 
   return (
@@ -86,6 +87,8 @@ export default function SurveyQ({
         <textarea
           className="input input-bordered min-w-96 min-h-40"
           placeholder="Agregar Comentario"
+          value={comentario}
+          onChange={onChangeHandler}
         ></textarea>
       </div>
     </div>

@@ -29,7 +29,11 @@ const allCategories = [
   { category: "prot", name: "Protección", icon: Shield },
 ];
 
-export default function Navbar({ page, softwareCategories = null }) {
+export default function Navbar({
+  page,
+  softwareCategories = null,
+  setSoftwareCat = () => {},
+}) {
   const [searchParams] = useSearchParams();
   const [showCategories, setShowCategories] = useState(false);
   const [categories, setCategories] = useState(allCategories);
@@ -57,6 +61,7 @@ export default function Navbar({ page, softwareCategories = null }) {
         })
         .filter((cat) => cat !== null);
       setCategories(cat);
+      setSoftwareCat(cat);
     }
   };
 
@@ -100,12 +105,11 @@ export default function Navbar({ page, softwareCategories = null }) {
               {showCategories ? (
                 categories.map((cat) => (
                   <Link
-                    to={"?category=" + cat.category}
+                    to={"?category=" + cat.name}
                     className="flex items-center gap-2 mt-2 rounded-md px-3 py-2 text-sm font-medium hover:bg-[#FFA726]"
                     style={{
                       backgroundColor:
-                        cat.category === searchParams.get("category") &&
-                        "#FFA726",
+                        cat.name === searchParams.get("category") && "#FFA726",
                     }}
                     key={cat.category}
                   >
