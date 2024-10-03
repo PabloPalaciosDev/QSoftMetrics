@@ -9,6 +9,8 @@ export default function SurveyQ({
 }) {
   const [selected, setSelected] = useState(initValue);
   const [comentario, setComentario] = useState(pregunta.comentario);
+  const [typing, setTyping] = useState(false); // Estado de si está escribiendo
+  const [timer, setTimer] = useState(null); // Timer para el delay
   const handleSelect = (value) => {
     setSelected(value);
     console.log("chngee");
@@ -17,6 +19,19 @@ export default function SurveyQ({
 
   const onChangeHandler = (e) => {
     setComentario(e.target.value);
+    setTyping(true); // Usuario está escribiendo
+
+    // Limpiamos el timer anterior
+    if (timer) clearTimeout(timer);
+
+    // Creamos un nuevo timer que se ejecutará después de 1 segundo sin escribir
+    setTimer(
+      setTimeout(() => {
+        setTyping(false); // Usuario ha dejado de escribir
+        addAnswer(nombre, pregunta.id_pregunta, selected, comentario);
+        console.log("Usuario dejó de escribir");
+      }, 1000)
+    );
   };
 
   return (

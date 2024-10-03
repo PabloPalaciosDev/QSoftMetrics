@@ -36,6 +36,16 @@ export default function Survey() {
     fetchSoftware();
   }, []);
 
+  const getUserId = async () => {
+    const user = await JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      console.log("User not logged in");
+      window.location.href = "/login";
+    }
+    console.log(user.id_usuario);
+    return user.id_usuario;
+  };
+
   const cate = [
     "ade_func",
     "efi_des",
@@ -77,7 +87,8 @@ export default function Survey() {
   };
 
   const submitAnswer = async (categoria) => {
-    console.log(software);
+    console.log("creando encuesta");
+    const userId = await getUserId();
     const res = await fetch("http://localhost:3000/api/survey", {
       method: "POST",
       headers: {
@@ -86,7 +97,7 @@ export default function Survey() {
       },
       body: JSON.stringify({
         software_id: software.id_software,
-        usuario_id: id,
+        usuario_id: userId,
       }),
     });
     const data = await res.json();
@@ -105,16 +116,16 @@ export default function Survey() {
       };
     });
     console.log(ansData);
-    // const res = await fetch("http://localhost:3000/api/respuesta", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "access-control-allow-origin": "*",
-    //   },
-    //   body: JSON.stringify(ansData),
-    // });
-    // const data = await res.json();
-    // console.log(data);
+    const res = await fetch("http://localhost:3000/api/respuesta", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-origin": "*",
+      },
+      body: JSON.stringify(ansData),
+    });
+    const data = await res.json();
+    console.log(data);
 
     const curentCategory = softwareCat.findIndex(
       (pregunta) => pregunta.name === category
@@ -123,6 +134,7 @@ export default function Survey() {
     console.log(softwareCat.length);
     if (curentCategory + 1 === softwareCat.length) {
       alert("encuesta terminada");
+      window.location.href = "/review";
       return;
     }
     setCategory(softwareCat[curentCategory + 1].name);

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function FeedbackTable({ data }) {
+export default function AnswerFeedbackTable({ data }) {
   const colores = [
     "#C0C0C080", // No aplica
     "#FF634780", // Muy en desacuerdo
@@ -43,9 +43,8 @@ export default function FeedbackTable({ data }) {
         <thead>
           <tr>
             <th></th>
-            <th>Nombre</th>
-            <th>Tipo de usuario</th>
-            <th>Correo</th>
+            <th>Caracteristica</th>
+            <th>Subcaracteristica</th>
             <th>Comentario</th>
             <th>Calificacion</th>
           </tr>
@@ -54,9 +53,8 @@ export default function FeedbackTable({ data }) {
           {fixedData.map((item, index) => (
             <tr key={index} style={{ backgroundColor: item.color }}>
               <th>{index + 1}</th>
-              <td>{item.usuario.nombre}</td>
-              <td>{item.usuario.rol}</td>
-              <td>{item.usuario.correo}</td>
+              <td>{item.pregunta.caracteristica}</td>
+              <td>{item.pregunta.subcaracteristica}</td>
               <td className="max-w-96 text-ellipsis overflow-hidden">
                 {item.comentario === "" ? "Sin comentario" : item.comentario}
               </td>

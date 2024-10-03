@@ -38,6 +38,11 @@ export default function NewProjects() {
     const categories = Object.keys(projectData.characteristics).filter(
       (key) => projectData.characteristics[key]
     );
+
+    if (categories.length === 0) {
+      alert("Selecciona al menos una categoria");
+      return;
+    }
     const stringCategories = JSON.stringify(categories);
     console.log(userId);
     //hacemos la peticion

@@ -5,6 +5,7 @@ export default function TableRow({
   index,
   borrarProyecto,
   canDelete = false,
+  id_encuesta,
 }) {
   const item = data;
   switch (item.tipo_software) {
@@ -14,7 +15,7 @@ export default function TableRow({
     case "desktop_app":
       item.tipo_software = "Aplicacion de escritorio";
       break;
-    case "mobile_app":
+    case "phone_app":
       item.tipo_software = "Aplicacion movil";
       break;
     default:
@@ -31,14 +32,28 @@ export default function TableRow({
         {item.descripcion}
       </td>
       <td>
-        <Link
-          to={"/survey/" + item.id_software + "?category=Adecuación Funcional"}
-          className="btn btn-warning bg-[#FFA726] btn-xs"
-        >
-          Evaluar
-        </Link>
+        {id_encuesta ? (
+          <Link
+            to={"/my-reviews/" + id_encuesta}
+            className="btn btn-accent bg-success btn-xs"
+          >
+            Ver respuesta
+          </Link>
+        ) : (
+          <Link
+            to={
+              "/survey/" + item.id_software + "?category=Adecuación Funcional"
+            }
+            className="btn btn-warning bg-[#FFA726] btn-xs"
+          >
+            Evaluar
+          </Link>
+        )}
 
-        <Link to="/survey" className="btn btn-accent bg-sky-500 btn-xs m-1">
+        <Link
+          to={"/results/" + item.id_software + "?category=Adecuación Funcional"}
+          className="btn btn-accent bg-sky-500 btn-xs m-1"
+        >
           Ver evaluacion
         </Link>
         {canDelete && (

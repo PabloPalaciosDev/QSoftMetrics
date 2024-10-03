@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import Results from "./pages/Results";
 import ResultFeedback from "./pages/ResultFeedback";
 import Logout from "./pages/Logout";
+import ReviewAnswer from "./pages/ReviewAnswer";
 
 function App() {
   const navRoutes = [
@@ -57,19 +58,25 @@ function App() {
       icon: "../../public/icons/home.png",
     },
     {
+      path: "/my-reviews/:id",
+      element: <ReviewAnswer />,
+      name: "mis evaluaciones",
+      icon: "../../public/icons/home.png",
+    },
+    {
       path: "/survey/:id",
       element: <Survey />,
       name: "encuesta",
       icon: "../../public/icons/home.png",
     },
     {
-      path: "/results",
+      path: "/results/:id",
       element: <Results />,
       name: "resultados",
       icon: "../../public/icons/home.png",
     },
     {
-      path: "/results/feedback",
+      path: "/results/:id/feedback",
       element: <ResultFeedback />,
       name: "Resultado de la retroalimentación",
       icon: "../../public/icons/home.png",

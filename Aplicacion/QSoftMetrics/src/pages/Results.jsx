@@ -1,62 +1,42 @@
 import Navbar from "../components/Navbar";
 import InfoNav from "../components/InfoNav";
-import ResultChart from "../components/results/ResultChart";
-
+import ResultPanel from "../components/results/ResultPanel";
+import { useState, useEffect } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 export default function Results() {
-  const data2 = {
-    labels: [
-      "No aplica",
-      "Muy en desacuerdo",
-      "En desacuerdo",
-      "Neutral",
-      "De acuerdo",
-      "Muy de acuerdo",
-    ],
-    datasets: [
-      {
-        label: "General",
-        data: [15, 45, 60, 30, 60, 90],
-        backgroundColor: [
-          "#C0C0C0", // No aplica
-          "#FF6347", // Muy en desacuerdo
-          "#FFA500", // En desacuerdo
-          "#FFDF00", // Neutral
-          "#90EE90", // De acuerdo
-          "#228B22", // Muy de acuerdo
-        ],
-        hoverOffset: 4,
-      },
-    ],
+  const { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [category, setCategory] = useState("Adecuación Funcional");
+  const [software, setSoftware] = useState();
+  const [resultados, setResultados] = useState({});
+
+  const fetchSoftware = async () => {
+    const res = await fetch("http://localhost:3000/api/software/" + id);
+    const data = await res.json();
+    //console.log(data);
+    setSoftware(data);
   };
-  const data = {
-    labels: [
-      "No aplica",
-      "Muy en desacuerdo",
-      "En desacuerdo",
-      "Neutral",
-      "De acuerdo",
-      "Muy de acuerdo",
-    ],
-    datasets: [
-      {
-        label: "Completitud Funcional",
-        data: [5, 15, 20, 10, 20, 30],
-        backgroundColor: [
-          "#C0C0C0", // No aplica
-          "#FF6347", // Muy en desacuerdo
-          "#FFA500", // En desacuerdo
-          "#FFDF00", // Neutral
-          "#90EE90", // De acuerdo
-          "#228B22", // Muy de acuerdo
-        ],
-        hoverOffset: 4,
-      },
-    ],
+
+  const fetchResults = async () => {
+    const res = await fetch("http://localhost:3000/api/resultados/" + id);
+    const data = await res.json();
+    console.log(data);
+    setResultados(data);
   };
+
+  useEffect(() => {
+    const myParam = searchParams.get("category");
+    setCategory(myParam);
+  }, [searchParams]);
+
+  useEffect(() => {
+    fetchSoftware();
+    fetchResults();
+  }, []);
 
   return (
     <section className="flex flex-row min-h-[100vh] max-w-[100vw] bg-background text-foreground">
-      <Navbar page={3} />
+      <Navbar softwareCategories={software?.categorias_a_evaluar} />
 
       <main className="flex flex-col bg-slate-100 flex-1">
         <div className="p-2">
@@ -65,19 +45,28 @@ export default function Results() {
 
         {/* titulo */}
         <div className="p-4">
-          <h1 className="text-2xl font-bold">Mis Evaluaciones</h1>
+          <h1 className="text-2xl font-bold">
+            Resultados del Software {resultados?.nombre_software}
+          </h1>
           <p>Mis evaluaciones</p>
         </div>
 
         {/* graficos */}
-        <section className="px-10">
-          <ResultChart data={data2} nombre="General - Adecuacion Funcional" />
-        </section>
-        <section className="grid grid-cols-2 gap-2 p-4 px-20 ">
-          <ResultChart data={data} nombre="Completitud Funcional" />
-          <ResultChart data={data} nombre="Correcion Funcional" />
-          <ResultChart data={data} nombre="Pertinencia Funcional" />
-        </section>
+        {resultados?.respuestaCounts ? (
+          Object.keys(resultados.respuestaCounts).map((key) => {
+            return (
+              <ResultPanel
+                dataProps={resultados.respuestaCounts[key]}
+                nombre={key}
+                showPanel={category === key}
+              />
+            );
+          })
+        ) : (
+          <p className="mt-4 font-bold ms-4 text-xl">
+            No hay evaluaciones para este proyecto
+          </p>
+        )}
       </main>
     </section>
   );

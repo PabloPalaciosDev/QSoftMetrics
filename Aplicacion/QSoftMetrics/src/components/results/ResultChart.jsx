@@ -2,7 +2,7 @@ import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import { Link } from "react-router-dom";
 
-export default function ResultChart({ data, nombre }) {
+export default function ResultChart({ data, nombre, showFeedback = false }) {
   const total = data.datasets[0].data.reduce((acc, curr) => acc + curr);
   const noAplica = data.datasets[0].data[0];
   const enDesacuerdo = data.datasets[0].data[1] + data.datasets[0].data[2];
@@ -40,12 +40,14 @@ export default function ResultChart({ data, nombre }) {
       <div className="mx-auto w-[20vw]">
         <Pie data={data} />
       </div>
-      <Link
-        to="feedback"
-        className="text-sm mt-auto absolute bottom-0 right-0 m-3 text-blue-600 hover:text-sky-400"
-      >
-        Ver mas
-      </Link>
+      {showFeedback && (
+        <Link
+          to="feedback?category=Adecuación Funcional"
+          className="text-sm mt-auto absolute bottom-0 right-0 m-3 text-blue-600 hover:text-sky-400"
+        >
+          Ver mas
+        </Link>
+      )}
     </div>
   );
 }
