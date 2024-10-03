@@ -4,9 +4,46 @@ import { PrismaClient } from "@prisma/client";
 const router = Router();
 const prisma = new PrismaClient();
 
+const getRespuestasByEncuestaId = async (encuestaId) => {
+  const respuestas = await prisma.respuesta.findMany({
+    where: {
+      encuesta_id: encuestaId,
+    },
+    include: {
+      encuesta: {
+        include: {
+          usuario: true, // Incluye los datos del usuario
+        },
+      },
+      pregunta: {
+        include: {
+          subcaracteristica: {
+            include: {
+              caracteristica: true, // Incluye el nombre de la característica
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return respuestas.map((respuesta) => ({
+    respuesta: respuesta.respuesta,
+    comentario: respuesta.comentario,
+    usuario: {
+      nombre: respuesta.encuesta.usuario.nombre,
+      correo: respuesta.encuesta.usuario.correo,
+    },
+    pregunta: {
+      subcaracteristica: respuesta.pregunta.subcaracteristica.nombre,
+      caracteristica:
+        respuesta.pregunta.subcaracteristica.caracteristica.nombre,
+    },
+  }));
+};
+
 router.get("/software", async (req, res) => {
   const software = await prisma.software.findMany();
-  console.log(software);
   res.send(software);
 });
 
@@ -50,6 +87,27 @@ router.post("/software", async (req, res) => {
     },
   });
   res.send(software);
+});
+
+//obtiene todo los software que un usuario ah evaluado
+router.get("/software/evaluaciones/:id", async (req, res) => {
+  const { id } = req.params;
+  const software = await prisma.encuesta.findMany({
+    where: {
+      usuario_id: parseInt(id),
+    },
+    include: {
+      software: true,
+    },
+  });
+  res.send(software);
+});
+
+//obtener toda las respuestas de un usuario
+router.get("/software/respuestas/:id", async (req, res) => {
+  const { id } = req.params;
+  const respuestas = await getRespuestasByEncuestaId(parseInt(id));
+  res.send(respuestas);
 });
 
 router.delete("/software/:id", async (req, res) => {

@@ -2,6 +2,7 @@ import express from "express";
 import usuarioRouter from "./src/routes/usuario.js";
 import softwareRouter from "./src/routes/software.js";
 import evaluacionRouter from "./src/routes/evaluacion.js";
+import resultadoRouter from "./src/routes/resultados.js";
 import cors from "cors";
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use("/api", usuarioRouter);
 app.use("/api", softwareRouter);
 app.use("/api", evaluacionRouter);
+app.use("/api", resultadoRouter);
 
 app.use(express.urlencoded({ extended: true }));
 
