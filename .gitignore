@@ -128,3 +128,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+Api/qsoftmetrics_api/.sonar/
+Api/qsoftmetrics_api/unzipped_code/
+Api/qsoftmetrics_api/uploads/

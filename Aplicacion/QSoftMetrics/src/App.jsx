@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import Results from "./pages/Results";
 import ResultFeedback from "./pages/ResultFeedback";
 import Logout from "./pages/Logout";
+import EvaluationSource from "./pages/EvaluationSourceCode";
 
 function App() {
   const navRoutes = [
@@ -87,6 +88,12 @@ function App() {
       name: "encuesta",
       icon: "../../public/icons/home.png",
     },
+    {
+      path: "/source-code-evaluation",
+      element: <EvaluationSource/>,
+      name: "evaluacion codigo fuentess",
+      icon: "../../public/icons/home.png",
+    }
   ];
 
   return (

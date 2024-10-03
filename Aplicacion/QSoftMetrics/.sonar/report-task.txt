@@ -1,0 +1,6 @@
+projectKey=qsoftmetrics
+serverUrl=http://localhost:9000
+serverVersion=10.6.0.92116
+dashboardUrl=http://localhost:9000/dashboard?id=qsoftmetrics
+ceTaskId=89551b8d-762f-4ace-beea-7cc895e485b8
+ceTaskUrl=http://localhost:9000/api/ce/task?id=89551b8d-762f-4ace-beea-7cc895e485b8
